@@ -5,13 +5,12 @@ import "@/app/globals.css";
 import { CookieConsent, GoogleTag } from "@/components/google-tag";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { PageTranslator } from "@/components/page-translator";
 import { business } from "@/content/business";
 import { absoluteUrl, isReviewEnvironment, siteUrl } from "@/lib/site";
 
 const sans = DM_Sans({ variable: "--font-sans", subsets: ["latin"], display: "swap" });
 const serif = Cormorant_Garamond({ variable: "--font-serif", subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
-const preferenceBootstrap = `(()=>{try{const root=document.documentElement;const language=localStorage.getItem("revival-language");const theme=localStorage.getItem("revival-theme");if(language){root.lang=language;root.dataset.language=language;}if(theme==="light"||theme==="dark")root.dataset.theme=theme;}catch{}})();`;
+const preferenceBootstrap = `(()=>{try{const root=document.documentElement;root.lang="en";root.dataset.language="en";const theme=localStorage.getItem("revival-theme");if(theme==="light"||theme==="dark")root.dataset.theme=theme;}catch{}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -27,5 +26,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html className={`${sans.variable} ${serif.variable}`} lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><PageTranslator /><a className="skip-link" href="#main-content">Skip to content</a><Header /><main id="main-content">{children}</main><Footer /><CookieConsent /><a className="floating-call" href={`tel:${business.phone.value?.replace(/[^+\d]/g, "")}`}><span aria-hidden="true">✦</span> Call</a></body></html>;
+  return <html className={`${sans.variable} ${serif.variable}`} lang="en" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><a className="skip-link" href="#main-content">Skip to content</a><Header /><main id="main-content">{children}</main><Footer /><CookieConsent /><a className="floating-call" href={`tel:${business.phone.value?.replace(/[^+\d]/g, "")}`}><span aria-hidden="true">✦</span> Call</a></body></html>;
 }

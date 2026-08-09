@@ -34,6 +34,7 @@ export function GoogleReviews() {
           <strong>{googleReviews.rating}</strong><span aria-hidden="true">★★★★★</span>
         </div>
         <p className="review-count">Based on {googleReviews.total} Google reviews</p>
+        <p className="review-verified">Review snapshot last checked {googleReviews.lastChecked}</p>
         <Link className="button button-gold" href={reviewsUrl} rel="noreferrer" target="_blank">Read all Google reviews <span aria-hidden="true">↗</span></Link>
       </div>
       <div aria-label="Traveler reviews carousel" className="review-carousel" role="region">
@@ -43,7 +44,7 @@ export function GoogleReviews() {
               <div aria-hidden="true" className="review-card-quote-mark">“</div>
               <div aria-hidden="true" className="review-stars">★★★★★</div>
               <blockquote>“{review.quote}”</blockquote>
-              <figcaption><strong>{review.author}</strong><span>Google review · {review.age}</span></figcaption>
+              <figcaption><strong>{review.author}</strong><span>Featured Google review</span></figcaption>
             </figure>)}
           </div>
         </div>

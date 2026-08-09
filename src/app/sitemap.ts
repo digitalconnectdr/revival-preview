@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { airports, fleet, routes, services } from "@/content/data";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, isProduction } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (!isProduction) return [];
   const now = new Date();
   const pages = ["", "/services", "/fleet", "/corporate", "/service-areas", "/about", "/reviews", "/faq", "/contact", "/book", "/insights", "/privacy-policy", "/terms-of-service", "/ride-terms", "/accessibility"];
   return [

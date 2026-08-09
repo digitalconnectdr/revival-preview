@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHero, Section, SectionHeading } from "@/components/site-components";
 import { business } from "@/content/business";
 import { pageMetadata } from "@/lib/seo";
@@ -33,13 +32,5 @@ export default function AboutPage() {
       </div>
     </Section>
     <Section className="soft-section"><div className="container three-note-grid"><div><span>01</span><h2>Personal attention</h2><p>Clear communication helps every ride begin on the right note.</p></div><div><span>02</span><h2>Private travel</h2><p>Airport, corporate, cruise, local and city-to-city travel can be planned around your day.</p></div><div><span>03</span><h2>Details first</h2><p>Your itinerary, party and timing shape the experience from pickup to arrival.</p></div></div></Section>
-    <Section className="association-section">
-      <div className="container association-layout">
-        <SectionHeading eyebrow="Industry connections" text="Revival stays connected with respected ground transportation and aviation organizations." title="Aligned with the standards that move travel forward." />
-        <div className="association-logo-panel">
-          <Image alt="National Limousine Association, The Air Charter Association, EBAA and NBAA" height={98} sizes="(max-width: 780px) 100vw, 58vw" src="/images/revival-industry-organizations.png" unoptimized width={1140} />
-        </div>
-      </div>
-    </Section>
   </>;
 }

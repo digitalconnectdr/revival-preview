@@ -30,17 +30,15 @@ export default function HomePage() {
         </div>
         <aside aria-labelledby="quote-title" className="quote-card">
           <p className="eyebrow">Plan your ride</p>
-          <h2 id="quote-title">Where are you headed?</h2>
-          <form>
-            <label>Pickup<input aria-label="Pickup location" placeholder="Pickup location" /></label>
-            <label>Destination<input aria-label="Destination" placeholder="Destination" /></label>
-            <div className="quote-fields">
-              <label>Date<input aria-label="Travel date" type="date" /></label>
-              <label>Travelers<select aria-label="Number of travelers" defaultValue=""><option disabled value="">Travelers</option><option>1–3</option><option>4–6</option><option>7+</option></select></label>
-            </div>
-            <BookingLink className="button button-dark button-full" placement="quick-quote">Continue to booking <span aria-hidden="true">↗</span></BookingLink>
-          </form>
-          <p className="quote-note">You will complete your reservation in Revival’s secure booking experience.</p>
+          <h2 id="quote-title">Ready when you are.</h2>
+          <p className="quote-intro">Begin your request in Revival’s secure booking experience.</p>
+          <ul className="quote-checklist">
+            <li>Share your pickup and destination</li>
+            <li>Choose the date and travel details</li>
+            <li>Review the reservation with Revival</li>
+          </ul>
+          <BookingLink className="button button-dark button-full" placement="quick-quote">Start your reservation <span aria-hidden="true">↗</span></BookingLink>
+          <p className="quote-note">You will enter your travel details once, directly in the booking experience.</p>
         </aside>
       </div>
     </section>
@@ -112,7 +110,10 @@ export default function HomePage() {
         </div>
         <aside className="mobile-app-access" aria-label="Open the Revival Transportation Group mobile web app">
           <div className="mobile-app-access-copy"><span className="mobile-app-mark">R</span><p>Revival on your phone</p><h3>Scan to open.</h3><small>Use your phone camera to continue.</small></div>
-          <div className="mobile-app-qr-plate"><Image alt="QR code to open the Revival Transportation Group mobile web app" className="mobile-app-qr" height={351} src="/images/revival-mobile-app-qr.png" unoptimized width={351} /></div>
+          <div className="mobile-app-phone">
+            <span aria-hidden="true" className="mobile-app-phone-speaker" />
+            <div className="mobile-app-qr-plate"><div className="mobile-app-qr-crop"><Image alt="QR code to open the Revival Transportation Group mobile web app" className="mobile-app-qr" height={349} src="/images/revival-mobile-app-qr.png" unoptimized width={345} /></div><span>Scan with your phone camera</span></div>
+          </div>
         </aside>
       </div>
     </Section>
