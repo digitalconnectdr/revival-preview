@@ -1,0 +1,19 @@
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\. - [F,L]
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^revivaltransportationgroup\.com$ [NC]
+  RewriteRule ^ https://revivaltransportationgroup.com%{REQUEST_URI} [R=301,L,NE]
+  Redirect 301 /home/ /
+  Redirect 301 /our-fleets/ /fleet
+  Redirect 301 /transport-service/ /services
+  Redirect 301 /transport-service/airport-transfer/ /services/airport-transfers
+  Redirect 301 /transport-service/executive-transfers/ /services/executive-transportation
+  Redirect 301 /transport-service/hourly-car-service/ /services/hourly-chauffeur
+  Redirect 301 /transport-service/port-transfer/ /services/port-canaveral-transfers
+  Redirect 301 /transport_booking/ /book
+</IfModule>

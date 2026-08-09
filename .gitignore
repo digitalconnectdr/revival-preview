@@ -1,0 +1,15 @@
+# dependencies and generated builds
+node_modules/
+.next/
+out/
+dist/
+coverage/
+playwright-report/
+test-results/
+
+# local configuration and editor files
+.env.local
+.env*.local
+!.env.example
+.DS_Store
+*.log

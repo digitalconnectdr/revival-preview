@@ -1,0 +1,43 @@
+{
+  "name": "revival-transportation-group",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=20.9 <25"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "build": "next build",
+    "build:vercel": "cross-env DEPLOY_TARGET=vercel next build",
+    "build:hostinger:node": "cross-env DEPLOY_TARGET=hostinger-node next build",
+    "build:hostinger:static": "cross-env DEPLOY_TARGET=hostinger-static next build && node scripts/prepare-hostinger-static.mjs",
+    "start": "next start",
+    "package:hostinger:static": "node scripts/package-hostinger-static.mjs",
+    "check": "pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@playwright/test": "latest",
+    "cross-env": "latest",
+    "eslint": "9.39.1",
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "prettier": "latest",
+    "tailwindcss": "latest",
+    "typescript": "5.7.3",
+    "vitest": "latest"
+  }
+}

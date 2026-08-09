@@ -1,0 +1,28 @@
+name: Local-quality template
+
+on:
+  workflow_dispatch:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [vercel, hostinger-node, hostinger-static]
+    env:
+      DEPLOY_TARGET: ${{ matrix.target }}
+      DEPLOYMENT_STAGE: staging
+      NEXT_PUBLIC_SITE_URL: https://staging.example.com
+      NEXT_PUBLIC_BOOKING_URL: https://pwa.mylimobiz.com/revivaltransportationgroup/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint && pnpm typecheck && pnpm test
+      - run: pnpm build
