@@ -11,9 +11,17 @@ type ServiceCardProps = {
   totalServices?: number;
   headingLevel?: "h2" | "h3";
   actionLabel?: string;
+  href?: string;
+  galleryLabels?: {
+    gallery: string;
+    previous: string;
+    next: string;
+    imagePosition: string;
+    showImage: string;
+  };
 };
 
-export function ServiceCard({ service, index, totalServices = 1, headingLevel = "h3", actionLabel = "Learn more" }: ServiceCardProps) {
+export function ServiceCard({ service, index, totalServices = 1, headingLevel = "h3", actionLabel = "Learn more", href, galleryLabels }: ServiceCardProps) {
   const [activeSlide, setActiveSlide] = useState(0);
   const slideCount = service.images.length;
   const Heading = headingLevel;
@@ -41,9 +49,13 @@ export function ServiceCard({ service, index, totalServices = 1, headingLevel = 
     setActiveSlide((nextSlide + slideCount) % slideCount);
   }
 
+  function label(template: string, current: number, total: number) {
+    return template.replace("{current}", String(current)).replace("{total}", String(total));
+  }
+
   return (
     <article className="service-card">
-      <div className="service-gallery" aria-label={`${service.name} image gallery`}>
+      <div className="service-gallery" aria-label={galleryLabels ? galleryLabels.gallery : `${service.name} image gallery`}>
         {service.images.map((image, imageIndex) => (
           <Image
             alt={imageIndex === activeSlide ? image.alt : ""}
@@ -56,13 +68,13 @@ export function ServiceCard({ service, index, totalServices = 1, headingLevel = 
           />
         ))}
         <div className="gallery-controls">
-          <button aria-label={`Previous ${service.name} image`} className="gallery-control" onClick={() => selectSlide(activeSlide - 1)} type="button">
+          <button aria-label={galleryLabels ? galleryLabels.previous : `Previous ${service.name} image`} className="gallery-control" onClick={() => selectSlide(activeSlide - 1)} type="button">
             <span aria-hidden="true">&#8592;</span>
           </button>
-          <div aria-label={`Image ${activeSlide + 1} of ${slideCount}`} className="gallery-dots" role="group">
+          <div aria-label={galleryLabels ? label(galleryLabels.imagePosition, activeSlide + 1, slideCount) : `Image ${activeSlide + 1} of ${slideCount}`} className="gallery-dots" role="group">
             {service.images.map((image, imageIndex) => (
               <button
-                aria-label={`Show image ${imageIndex + 1} of ${slideCount} for ${service.name}`}
+                aria-label={galleryLabels ? label(galleryLabels.showImage, imageIndex + 1, slideCount) : `Show image ${imageIndex + 1} of ${slideCount} for ${service.name}`}
                 aria-pressed={imageIndex === activeSlide}
                 className={`gallery-dot${imageIndex === activeSlide ? " is-active" : ""}`}
                 key={image.src}
@@ -71,7 +83,7 @@ export function ServiceCard({ service, index, totalServices = 1, headingLevel = 
               />
             ))}
           </div>
-          <button aria-label={`Next ${service.name} image`} className="gallery-control" onClick={() => selectSlide(activeSlide + 1)} type="button">
+          <button aria-label={galleryLabels ? galleryLabels.next : `Next ${service.name} image`} className="gallery-control" onClick={() => selectSlide(activeSlide + 1)} type="button">
             <span aria-hidden="true">&#8594;</span>
           </button>
         </div>
@@ -81,7 +93,7 @@ export function ServiceCard({ service, index, totalServices = 1, headingLevel = 
         <p className="card-kicker">{service.kicker}</p>
         <Heading>{service.name}</Heading>
         <p>{service.summary}</p>
-        <ArrowLink href={`/services/${service.slug}`}>{actionLabel}</ArrowLink>
+        <ArrowLink href={href ?? `/services/${service.slug}`}>{actionLabel}</ArrowLink>
       </div>
     </article>
   );

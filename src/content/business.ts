@@ -62,9 +62,17 @@ export const business = {
     notes: "TODO_CLIENT_APPROVAL: no public physical address has been verified.",
   },
   socialProfiles: {
-    value: [],
-    status: "pending",
-    notes: "TODO_CLIENT_APPROVAL: add only official, client-confirmed profiles.",
+    value: [
+      {
+        platform: "instagram",
+        username: "revivaltransportationgroup",
+        url: "https://www.instagram.com/revivaltransportationgroup/",
+        verified: true,
+      },
+    ],
+    status: "client_approved",
+    source: "Client confirmation, 2026-08-09",
+    notes: "Render only verified profiles. Additional social profiles remain disabled until confirmed.",
   },
 } as const satisfies Record<string, BusinessFact<unknown>>;
 

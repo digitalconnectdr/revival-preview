@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "audit:seo": "node scripts/audit-seo.mjs",
     "build": "next build",
     "build:vercel": "cross-env DEPLOY_TARGET=vercel next build",
     "build:hostinger:node": "cross-env DEPLOY_TARGET=hostinger-node next build",

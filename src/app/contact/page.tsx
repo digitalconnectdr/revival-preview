@@ -1,8 +1,0 @@
-import type { Metadata } from "next";
-import { PageHero, Section } from "@/components/site-components";
-import { business } from "@/content/business";
-import { phoneHref } from "@/lib/site";
-import { pageMetadata } from "@/lib/seo";
-
-export const metadata: Metadata = pageMetadata("Contact", "Contact Revival Transportation Group for private transportation and custom trip requests.", "/contact");
-export default function ContactPage() { const phone = business.phone.value ?? ""; const email = business.email.value ?? ""; return <><PageHero eyebrow="Get in touch" title="Start with the details of your trip." intro="Call or email Revival for airport, corporate, group and custom transportation questions." /><Section><div className="container contact-layout"><div className="contact-details"><p className="eyebrow">Contact Revival</p><h2>We’ll help you plan the next move.</h2><a href={phoneHref(phone)}>{phone}</a><a href={`mailto:${email}`}>{email}</a><p><strong>Mailing address</strong><br />{business.mailingAddress.value}</p></div><aside className="contact-action-card"><p className="eyebrow">Direct assistance</p><h2>Talk with the Revival team.</h2><p>For a faster response, contact Revival directly with your pickup, destination, date and passenger details.</p><div><a className="button button-gold" href={phoneHref(phone)}>Call Revival <span aria-hidden="true">→</span></a><a className="button button-outline" href={`mailto:${email}`}>Email Revival <span aria-hidden="true">→</span></a></div><small>Online inquiries will return when a verified delivery service is connected.</small></aside></div></Section></>; }

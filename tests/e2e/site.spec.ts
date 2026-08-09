@@ -12,15 +12,37 @@ test("service page has unique content and a booking CTA", async ({ page }) => {
   await expect(page.locator(".page-hero .button")).toBeVisible();
 });
 
-test("keeps preview language controls limited to the verified English experience", async ({ page }) => {
+test("renders the English experience with native language controls", async ({ page }) => {
   const paths = ["/", "/services/airport-transfers", "/contact"];
 
   for (const path of paths) {
     await page.goto(path);
-    await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await expect(page.getByLabel("Site language: English")).toHaveCount(2);
+    await expect(page.locator("html")).toHaveAttribute("lang", "en-US");
+    await expect(page.getByLabel("Current language: English")).toHaveCount(2);
+    await expect(page.locator(".language-options a")).toHaveCount(6);
     await expect(page.getByRole("button", { name: /español|português/i })).toHaveCount(0);
   }
+});
+
+test("serves Spanish and Portuguese routes with their own document language and metadata", async ({ page }) => {
+  for (const [path, lang] of [["/es/services/city-to-city", "es-US"], ["/pt/services/city-to-city", "pt-BR"]] as const) {
+    await page.goto(path);
+    await expect(page.locator("html")).toHaveAttribute("lang", lang);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", new RegExp(`${path}$`));
+    await expect(page.locator('link[hreflang="en-US"]')).toHaveCount(1);
+    await expect(page.locator('link[hreflang="es-US"]')).toHaveCount(1);
+    await expect(page.locator('link[hreflang="pt-BR"]')).toHaveCount(1);
+    await expect(page.getByRole("link", { name: /Revival Transportation Group/i }).first()).toBeVisible();
+  }
+});
+
+test("provides the equivalent deep route for a language change", async ({ page }) => {
+  await page.goto("/pt/services/city-to-city");
+  const spanishVersion = page.locator('.language-options a[href="/es/services/city-to-city"]').first();
+  await expect(spanishVersion).toHaveAttribute("href", "/es/services/city-to-city");
+  await page.goto("/es/services/city-to-city");
+  await expect(page).toHaveURL(/\/es\/services\/city-to-city$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "es-US");
 });
 
 test("sends travelers to the verified reservation experience without duplicate quick-form fields", async ({ page }) => {

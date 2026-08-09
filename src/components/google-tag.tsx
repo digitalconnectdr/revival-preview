@@ -4,6 +4,8 @@ import Link from "next/link";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useSyncExternalStore } from "react";
+import type { Locale } from "@/i18n/config";
+import { getUi } from "@/i18n/ui";
 
 const googleTagId = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID?.trim();
 const analyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
@@ -37,8 +39,9 @@ export function GoogleTag() {
   return <><Script id="google-tag-bootstrap" strategy="afterInteractive">{bootstrap}</Script><Script async id="google-tag" src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(tagId)}`} strategy="afterInteractive" /></>;
 }
 
-export function CookieConsent() {
+export function CookieConsent({ locale = "en" }: { locale?: Locale }) {
   const consent = useSyncExternalStore<ConsentStatus>(subscribeToConsent, readConsent, () => "pending");
+  const copy = getUi(locale);
 
   useEffect(() => {
     if (consent !== "pending") window.gtag?.("consent", "update", consentFor(consent));
@@ -52,7 +55,7 @@ export function CookieConsent() {
     window.dispatchEvent(new Event(consentChangeEvent));
   }
 
-  return <aside aria-label="Cookie preferences" className="cookie-consent"><p>We use optional measurement cookies to understand website visits and improve advertising. You can accept or decline them.</p><div><button className="button button-gold button-small" onClick={() => choose("granted")} type="button">Accept</button><button className="cookie-decline" onClick={() => choose("denied")} type="button">No thanks</button><Link href="/privacy-policy">Privacy</Link></div></aside>;
+  return <aside aria-label={copy.cookieLabel} className="cookie-consent"><p>{copy.cookieText}</p><div><button className="button button-gold button-small" onClick={() => choose("granted")} type="button">{copy.accept}</button><button className="cookie-decline" onClick={() => choose("denied")} type="button">{copy.decline}</button><Link href={locale === "en" ? "/privacy-policy" : `/${locale}/privacy-policy`}>{copy.privacy}</Link></div></aside>;
 }
 
 function consentFor(status: "granted" | "denied") {

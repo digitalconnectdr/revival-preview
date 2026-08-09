@@ -4,9 +4,10 @@ import type { FleetVehicle } from "@/content/data";
 type FleetCardProps = {
   headingLevel?: "h2" | "h3";
   vehicle: FleetVehicle;
+  labels?: { passengers: string; luggage: string; confirmation: string };
 };
 
-export function FleetCard({ headingLevel = "h3", vehicle }: FleetCardProps) {
+export function FleetCard({ headingLevel = "h3", vehicle, labels }: FleetCardProps) {
   const Heading = headingLevel;
 
   return <article className="fleet-card">
@@ -15,8 +16,8 @@ export function FleetCard({ headingLevel = "h3", vehicle }: FleetCardProps) {
     </div>
     <p className="card-kicker">{vehicle.category}</p>
     <Heading>{vehicle.name}</Heading>
-    <dl><div><dt>Passengers</dt><dd>{vehicle.capacity}</dd></div><div><dt>Luggage</dt><dd>{vehicle.luggage}</dd></div></dl>
+    <dl><div><dt>{labels?.passengers ?? "Passengers"}</dt><dd>{vehicle.capacity}</dd></div><div><dt>{labels?.luggage ?? "Luggage"}</dt><dd>{vehicle.luggage}</dd></div></dl>
     <p>{vehicle.description}</p>
-    {vehicle.status === "conflict" && <p className="fleet-disclosure">Group capacity is confirmed directly before booking.</p>}
+    {vehicle.status === "conflict" && <p className="fleet-disclosure">{labels?.confirmation ?? "Group capacity is confirmed directly before booking."}</p>}
   </article>;
 }

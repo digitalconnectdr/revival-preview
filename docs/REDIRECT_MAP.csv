@@ -1,0 +1,11 @@
+old_url,new_url,status,reason,verified
+/home/,/,301,Legacy homepage path maps to canonical English home,prepared-not-active
+/our-fleets/,/fleet,301,Legacy fleet path maps to the fleet page,prepared-not-active
+/transport-service/,/services,301,Legacy service index maps to canonical services,prepared-not-active
+/transport-service/airport-transfer/,/services/airport-transfers,301,Legacy airport service maps to equivalent service,prepared-not-active
+/transport-service/executive-transfers/,/services/executive-transportation,301,Legacy executive service maps to equivalent service,prepared-not-active
+/transport-service/hourly-car-service/,/services/hourly-chauffeur,301,Legacy hourly service maps to equivalent service,prepared-not-active
+/transport-service/port-transfer/,/services/port-canaveral-transfers,301,Legacy port service maps to equivalent service,prepared-not-active
+/transport_booking/,/book,301,Legacy booking path maps to reservation handoff,prepared-not-active
+/es/,/es,200,Current Spanish server-rendered canonical route,verified-local
+/pt/,/pt,200,Current Portuguese server-rendered canonical route,verified-local

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { Service } from "@/content/data";
 import { business } from "@/content/business";
+import { localeMetadata, localizedAlternates, localizedPath, type Locale } from "@/i18n/config";
 import { absoluteUrl } from "@/lib/site";
 
 const brandName = business.brandName.value ?? "Revival Transportation Group";
@@ -10,20 +11,23 @@ const businessId = absoluteUrl("/#transportation-service");
 type BreadcrumbItem = { label: string; href?: string };
 type FaqItem = { question: string; answer: string };
 
-export function pageMetadata(title: string, description: string, path: string): Metadata {
-  const url = absoluteUrl(path);
+export function pageMetadata(title: string, description: string, path: string, locale: Locale = "en"): Metadata {
+  const localizedUrlPath = localizedPath(locale, path);
+  const url = absoluteUrl(localizedUrlPath);
   const fullTitle = `${title} | ${brandName}`;
 
   return {
     title,
     description,
-    alternates: { canonical: path },
-    openGraph: { type: "website", url, siteName: brandName, title: fullTitle, description, locale: "en_US" },
+    alternates: { canonical: localizedUrlPath, ...localizedAlternates(path) },
+    openGraph: { type: "website", url, siteName: brandName, title: fullTitle, description, locale: localeMetadata[locale].ogLocale },
     twitter: { card: "summary", title: fullTitle, description },
   };
 }
 
-export function businessSchema(services: Service[]) {
+export function businessSchema(services: Service[], locale: Locale = "en") {
+  const language = localeMetadata[locale].label;
+  const socialProfiles = (business.socialProfiles.value ?? []).filter((profile) => profile.verified).map((profile) => profile.url);
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -31,10 +35,11 @@ export function businessSchema(services: Service[]) {
         "@type": "Organization",
         "@id": organizationId,
         name: brandName,
-        url: absoluteUrl("/"),
+        url: absoluteUrl(localizedPath(locale, "/")),
         telephone: business.phone.value,
         email: business.email.value,
-        contactPoint: [{ "@type": "ContactPoint", telephone: business.phone.value, contactType: "customer service", availableLanguage: ["English", "Spanish", "Portuguese"] }],
+        sameAs: socialProfiles,
+        contactPoint: [{ "@type": "ContactPoint", telephone: business.phone.value, contactType: "customer service", availableLanguage: [language] }],
         areaServed: [
           { "@type": "AdministrativeArea", name: "Central Florida" },
           { "@type": "Airport", name: "Orlando International Airport", iataCode: "MCO" },
@@ -46,7 +51,7 @@ export function businessSchema(services: Service[]) {
           name: "Private transportation services",
           itemListElement: services.map((service) => ({
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: service.name, description: service.summary, url: absoluteUrl(`/services/${service.slug}`) },
+            itemOffered: { "@type": "Service", name: service.name, description: service.summary, url: absoluteUrl(localizedPath(locale, `/services/${service.slug}`)) },
           })),
         },
       },
@@ -59,18 +64,25 @@ export function businessSchema(services: Service[]) {
         provider: { "@id": organizationId },
         areaServed: "Central Florida",
       },
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        name: brandName,
+        url: absoluteUrl("/"),
+        inLanguage: localeMetadata[locale].htmlLang,
+      },
     ],
   };
 }
 
-export function serviceSchema(service: Service, path: string) {
+export function serviceSchema(service: Service, path: string, locale: Locale = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     name: service.name,
     description: service.description,
     serviceType: service.kicker,
-    url: absoluteUrl(path),
+    url: absoluteUrl(localizedPath(locale, path)),
     image: service.images.map((image) => absoluteUrl(image.src)),
     provider: { "@id": businessId },
     areaServed: "Central Florida",
@@ -89,7 +101,7 @@ export function faqSchema(items: FaqItem[]) {
   };
 }
 
-export function breadcrumbSchema(items: BreadcrumbItem[], currentPath: string) {
+export function breadcrumbSchema(items: BreadcrumbItem[], currentPath: string, locale: Locale = "en") {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -97,7 +109,7 @@ export function breadcrumbSchema(items: BreadcrumbItem[], currentPath: string) {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      item: absoluteUrl(item.href ?? currentPath),
+      item: absoluteUrl(localizedPath(locale, item.href ?? currentPath)),
     })),
   };
 }

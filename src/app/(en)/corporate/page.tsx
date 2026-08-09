@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import { TrackedContactLink } from "@/components/tracked-contact-link";
+import { PageHero, PrimaryCta, Section, SectionHeading } from "@/components/site-components";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata("Corporate Transportation", "Private transportation for executive airport travel, meetings, client visits and business itineraries.", "/corporate");
+
+export default function CorporatePage() {
+  return <><PageHero eyebrow="For business travel" title="A composed experience for the people you move." intro="Private transportation for executive airport travel, client visits, meetings and planned business itineraries."><PrimaryCta placement="corporate-hero" /></PageHero><Section><div className="container"><SectionHeading eyebrow="Built around the itinerary" title="The details matter before the wheels move." /><div className="use-case-grid"><div><span>01</span><h2>Executive travel</h2><p>Plan airport transfers, meetings and client visits around your schedule.</p></div><div><span>02</span><h2>Multi-stop days</h2><p>Share every stop and timing requirement so the day can be planned smoothly.</p></div><div><span>03</span><h2>Event transportation</h2><p>For conferences and group plans, send the itinerary and travel party details early.</p></div></div></div></Section><Section className="soft-section"><div className="container split-copy"><div><SectionHeading eyebrow="Corporate accounts" title="A conversation before a promise." /><p>Corporate transportation can be tailored around your company’s travel needs. Account setup, invoicing and travel preferences are discussed directly with the Revival team.</p></div><div className="callout"><p className="eyebrow">Request information</p><h3>Tell us about your travel needs.</h3><p>Use the contact page for corporate or executive travel questions.</p><TrackedContactLink channel="corporate" className="button button-gold" href="/contact" placement="corporate-request">Contact Revival <span aria-hidden="true">→</span></TrackedContactLink></div></div></Section></>;
+}

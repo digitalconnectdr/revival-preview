@@ -4,7 +4,14 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Service } from "@/content/data";
 
-export function ServiceImageGallery({ service }: { service: Service }) {
+type GalleryLabels = {
+  gallery: string;
+  previous: string;
+  next: string;
+  image: string;
+};
+
+export function ServiceImageGallery({ service, labels }: { service: Service; labels?: GalleryLabels }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const slideCount = service.images.length;
 
@@ -12,7 +19,11 @@ export function ServiceImageGallery({ service }: { service: Service }) {
     setActiveSlide((nextSlide + slideCount) % slideCount);
   }
 
-  return <section aria-label={`${service.name} image gallery`} className="service-detail-gallery">
+  function label(template: string, current: number, total: number) {
+    return template.replace("{current}", String(current)).replace("{total}", String(total));
+  }
+
+  return <section aria-label={labels?.gallery ?? `${service.name} image gallery`} className="service-detail-gallery">
     <div className="service-detail-stage">
       {service.images.map((image, imageIndex) => <Image
         alt={imageIndex === activeSlide ? image.alt : ""}
@@ -28,13 +39,13 @@ export function ServiceImageGallery({ service }: { service: Service }) {
         <span>{String(activeSlide + 1).padStart(2, "0")} / {String(slideCount).padStart(2, "0")}</span>
       </div>
       <div className="detail-gallery-controls">
-        <button aria-label={`Previous ${service.name} image`} onClick={() => selectSlide(activeSlide - 1)} type="button">←</button>
-        <button aria-label={`Next ${service.name} image`} onClick={() => selectSlide(activeSlide + 1)} type="button">→</button>
+        <button aria-label={labels?.previous ?? `Previous ${service.name} image`} onClick={() => selectSlide(activeSlide - 1)} type="button">←</button>
+        <button aria-label={labels?.next ?? `Next ${service.name} image`} onClick={() => selectSlide(activeSlide + 1)} type="button">→</button>
       </div>
     </div>
     <div className="service-detail-thumbnails">
       {service.images.map((image, imageIndex) => <button
-        aria-label={`Show image ${imageIndex + 1} of ${slideCount} for ${service.name}`}
+        aria-label={labels ? label(labels.image, imageIndex + 1, slideCount) : `Show image ${imageIndex + 1} of ${slideCount} for ${service.name}`}
         aria-pressed={imageIndex === activeSlide}
         className={`service-detail-thumbnail${imageIndex === activeSlide ? " is-active" : ""}`}
         key={image.src}
