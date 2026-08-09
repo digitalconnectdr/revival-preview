@@ -4,6 +4,15 @@
 
 This report covers the local codebase and the Vercel preview workflow only. It does not authorize a production release, Hostinger change or live-domain deployment.
 
+## Public preview deployment
+
+- Alias: `https://revival-preview.vercel.app/`
+- Branch: `main`
+- Deployed commit: `520ad69de9406e2d3e7b4f98a37a47e3c9c862f0`
+- Vercel deployment ID: `CbXQwbrX7g8ccB25sX7gVfP5BV4d`
+- Vercel completion time: `2026-08-09T19:59:10Z`
+- Deployment record: `https://vercel.com/digitalconnectdrs-projects/revival-preview/CbXQwbrX7g8ccB25sX7gVfP5BV4d`
+
 ## Implemented
 
 - Server-rendered EN, ES and PT routes with canonical English paths and prefixed Spanish/Portuguese paths.
@@ -32,8 +41,11 @@ This report covers the local codebase and the Vercel preview workflow only. It d
 | Dark theme | Local PASS | Spanish homepage visual check |
 | Dependency audit | PASS | `pnpm audit --prod`: no known vulnerabilities |
 | Security headers | Local PASS | CSP, content type, referrer, permissions and frame protection confirmed locally |
-| Preview noindex | Pending public re-audit | Verify after the final GitHub/Vercel preview build |
-| Public Vercel deployment ID/date | Pending external platform access | Record once visible in Vercel deployment details |
+| Public preview route crawl | PASS | 81/81 public routes passed; no broken internal route targets |
+| Preview noindex | PASS | Page metadata is `noindex, nofollow`; `robots.txt` disallows all and sitemap is empty |
+| Public security headers | PASS | CSP, content type, referrer, permissions and frame headers returned from Vercel |
+| Translator removal | PASS | No Google Translate/PageTranslator runtime marker in the public HTML |
+| Public Vercel deployment ID/date | PASS | Deployment ID, commit and completion time recorded above |
 
 ## Production blockers
 

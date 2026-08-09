@@ -1,6 +1,6 @@
 # Final route inventory
 
-Generated from the current Next build manifest and audited against http://127.0.0.1:3000 on 2026-08-09T19:57:01.849Z. This preview audit expects noindex, nofollow behavior.
+Generated from the current Next build manifest and audited against https://revival-preview.vercel.app on 2026-08-09T19:59:15.920Z. This preview audit expects noindex, nofollow behavior.
 
 - Routes audited: 81
 - Route-level passes: 81/81
