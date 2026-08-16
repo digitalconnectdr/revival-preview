@@ -25,9 +25,9 @@ export default function ServiceAreasPage() {
             <h2>Central Florida</h2>
             <p>From airport and port transfers to corporate and local travel, Revival helps you move comfortably throughout Central Florida.</p>
             <div className="area-links">
-              <Link href="/airports/mco">MCO transportation</Link>
-              <Link href="/airports/sfb">SFB transportation</Link>
-              <Link href="/services/port-canaveral-transfers">Port Canaveral transfers</Link>
+              <Link href="/airports/mco"><strong>MCO · Orlando International Airport</strong><span>Private airport transportation</span></Link>
+              <Link href="/airports/sfb"><strong>SFB · Orlando Sanford International Airport</strong><span>Private airport transportation</span></Link>
+              <Link href="/services/port-canaveral-transfers"><strong>Port Canaveral</strong><span>Cruise terminal connections</span></Link>
             </div>
           </div>
           <ServiceAreaCoverageVisual region="central" />
