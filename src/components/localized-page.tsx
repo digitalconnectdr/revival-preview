@@ -176,7 +176,6 @@ function LocalizedServiceAreas({ locale }: { locale: Locale }) {
     <Section>
       <div className="container area-page-grid">
         <article className="area-primary">
-          <ServiceAreaCoverageVisual locale={locale} region="central" />
           <div className="area-page-copy">
             <p className="eyebrow">{text.core}</p>
             <h2>{text.central}</h2>
@@ -187,15 +186,16 @@ function LocalizedServiceAreas({ locale }: { locale: Locale }) {
               <Link href={href(locale, "/services/port-canaveral-transfers")}>Port Canaveral</Link>
             </div>
           </div>
+          <ServiceAreaCoverageVisual locale={locale} region="central" />
         </article>
         <article className="area-secondary">
-          <ServiceAreaCoverageVisual locale={locale} region="northeast" />
           <div className="area-page-copy">
             <p className="eyebrow">{text.northeast}</p>
             <h2>{text.northeastTitle}</h2>
             <p>{text.northeastText}</p>
             <small>{text.note}</small>
           </div>
+          <ServiceAreaCoverageVisual locale={locale} region="northeast" />
         </article>
       </div>
     </Section>

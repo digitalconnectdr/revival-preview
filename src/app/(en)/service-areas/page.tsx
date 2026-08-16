@@ -20,7 +20,6 @@ export default function ServiceAreasPage() {
     <Section>
       <div className="container area-page-grid">
         <article className="area-primary">
-          <ServiceAreaCoverageVisual region="central" />
           <div className="area-page-copy">
             <p className="eyebrow">Core service area</p>
             <h2>Central Florida</h2>
@@ -31,15 +30,16 @@ export default function ServiceAreasPage() {
               <Link href="/services/port-canaveral-transfers">Port Canaveral transfers</Link>
             </div>
           </div>
+          <ServiceAreaCoverageVisual region="central" />
         </article>
         <article className="area-secondary">
-          <ServiceAreaCoverageVisual region="northeast" />
           <div className="area-page-copy">
             <p className="eyebrow">Published Northeast markets</p>
             <h2>New York, New Jersey, Connecticut, Massachusetts and Pennsylvania</h2>
             <p>These markets have been part of Revival’s published positioning. Travel requests are reviewed individually; contact the team with your itinerary to discuss current availability.</p>
             <small>Availability, service arrangement and travel details are confirmed before booking.</small>
           </div>
+          <ServiceAreaCoverageVisual region="northeast" />
         </article>
       </div>
     </Section>
