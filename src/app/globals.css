@@ -238,3 +238,5 @@ html[data-theme="dark"] .trust-grid strong { color: #f7f4ee; }html[data-theme="d
 .area-links a span { color: rgba(255,255,255,.72); font-size: .82rem; font-weight: 500; letter-spacing: 0; line-height: 1.35; }
 .coverage-visual { aspect-ratio: 16 / 8; background: var(--ink); margin: 0; min-height: 235px; overflow: hidden; position: relative; }
 .coverage-visual img { object-fit: cover; object-position: center; }
+.facts-card > .text-link { color: var(--champagne-soft); display: inline-flex; font-size: .8rem; font-weight: 800; gap: .35rem; letter-spacing: .035em; margin-top: 1.05rem; text-decoration: none; text-transform: uppercase; }
+.facts-card > .text-link:hover, .facts-card > .text-link:focus-visible { color: white; }
