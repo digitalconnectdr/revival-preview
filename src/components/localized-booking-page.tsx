@@ -5,10 +5,10 @@ import type { Locale } from "@/i18n/config";
 export function LocalizedBookingPage({ locale }: { locale: Locale }) {
   const text = locale === "es"
     ? {
-      eyebrow: "Reserva online de Revival",
+      eyebrow: "Reserva con Revival",
       hero: "Reserva tu transporte.",
       heroIntro: "Reserva traslados al aeropuerto, transporte con chófer y viajes privados con Revival Transportation Group.",
-      bookingEyebrow: "Reserva online de Revival",
+      bookingEyebrow: "Reserva segura",
       title: "¿Listo para reservar tu viaje?",
       intro: "Continúa al sistema de reservas seguro de Revival para ingresar los detalles de tu viaje.",
       cta: "Inicia una reserva segura",
@@ -18,10 +18,10 @@ export function LocalizedBookingPage({ locale }: { locale: Locale }) {
       support: "Para cuentas corporativas, viajes de grupo o un itinerario complejo, contacta directamente al equipo de Revival.",
     }
     : {
-      eyebrow: "Reserva online da Revival",
+      eyebrow: "Reserve com a Revival",
       hero: "Reserve seu transporte.",
       heroIntro: "Reserve traslados para o aeroporto, transporte com motorista e viagens privativas com a Revival Transportation Group.",
-      bookingEyebrow: "Reserva online da Revival",
+      bookingEyebrow: "Reserva segura",
       title: "Pronto para reservar sua viagem?",
       intro: "Continue para o sistema de reservas seguro da Revival e informe os detalhes da sua viagem.",
       cta: "Inicie uma reserva segura",

@@ -257,6 +257,7 @@ html[data-theme="dark"] .trust-grid strong { color: #f7f4ee; }html[data-theme="d
 .booking-experience-heading p { color: rgba(255,255,255,.76); font-size: 1.06rem; margin-bottom: 0; max-width: 560px; }
 .booking-experience-action { background: #171b21; display: flex; flex-direction: column; justify-content: center; padding: clamp(2rem,4vw,4rem); position: relative; }
 .booking-experience-mark { align-items: center; border: 1px solid var(--champagne); color: var(--champagne); display: inline-flex; font-family: var(--font-serif); font-size: 1.65rem; height: 42px; justify-content: center; margin-bottom: 1.7rem; width: 42px; }
+.booking-experience-mark::before { content: "R"; }
 .booking-experience-action > .eyebrow { margin-bottom: .7rem; }
 .booking-experience-action > .button { align-self: flex-start; margin-bottom: 1.8rem; }
 .booking-experience-support { border-top: 1px solid rgba(255,255,255,.18); padding-top: 1.4rem; }
