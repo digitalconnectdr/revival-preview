@@ -25,7 +25,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
           <span aria-hidden="true"><strong>Revival</strong><small>Transportation Group</small></span>
         </Link>
         <p>{copy.footerIntro}</p>
-        <BookingLink className="text-link" placement="footer">{copy.startReservation} <span aria-hidden="true">↗</span></BookingLink>
+        <BookingLink className="text-link" href={localized("/book")} placement="footer">{copy.startReservation} <span aria-hidden="true">↗</span></BookingLink>
         {instagram && <TrackedContactLink aria-label={copy.instagramLabel} channel="instagram" className="instagram-link" href={instagram.url} placement="footer" rel="noopener noreferrer" target="_blank"><span aria-hidden="true">◎</span> @{instagram.username}</TrackedContactLink>}
       </div>
       <div><h2>{copy.services}</h2><ul>{services.slice(0, 5).map((service) => <li key={service.slug}><Link href={localized(`/services/${service.slug}`)}>{service.name}</Link></li>)}</ul></div>
