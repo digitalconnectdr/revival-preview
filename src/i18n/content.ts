@@ -150,12 +150,12 @@ export function getLocalizedSiteFaq(locale: Locale) {
   if (locale === "en") return siteFaq;
   return locale === "es" ? [
     { question: "¿Cómo reservo transporte?", answer: "Usa la experiencia de reserva en línea o llama a Revival Transportation Group. Los detalles y la disponibilidad se confirman durante el proceso de reserva." },
-    { question: "¿Qué áreas atienden?", answer: "Florida Central es el área principal de Revival, incluyendo MCO, SFB y Port Canaveral. Contacta al equipo para conversar sobre viajes fuera de la región." },
+    { question: "¿Qué áreas atienden?", answer: "Revival atiende Florida Central, incluyendo MCO, SFB, Puerto Cañaveral, Walt Disney World y Universal Orlando, además de mercados activos del noreste en Nueva York, Nueva Jersey, Connecticut, Massachusetts y Pensilvania." },
     { question: "¿Qué categorías de vehículos puedo solicitar?", answer: "Puedes solicitar SUV ejecutiva, SUV Premium, sedán ejecutivo y opciones de transporte grupal. El equipo ayudará a ajustar la categoría a tu plan." },
     { question: "¿Puedo solicitar un itinerario personalizado?", answer: "Sí. Comparte recogida, destino, horario y detalles del grupo al reservar o contactar a Revival." },
   ] : [
     { question: "Como reservo transporte?", answer: "Use a experiência de reserva online ou ligue para a Revival Transportation Group. Os detalhes e a disponibilidade são confirmados durante a reserva." },
-    { question: "Quais áreas são atendidas?", answer: "A Flórida Central é a área principal da Revival, incluindo MCO, SFB e Port Canaveral. Fale com a equipe sobre viagens além da região." },
+    { question: "Quais áreas são atendidas?", answer: "A Revival atende a Flórida Central, incluindo MCO, SFB, Porto Canaveral, Walt Disney World e Universal Orlando, além de mercados ativos do Nordeste em Nova York, Nova Jersey, Connecticut, Massachusetts e Pensilvânia." },
     { question: "Quais categorias de veículo posso solicitar?", answer: "Você pode solicitar SUV executiva, SUV Premium, sedã executivo e opções de transporte em grupo. A equipe ajudará a adequar a categoria ao seu plano." },
     { question: "Posso solicitar um roteiro personalizado?", answer: "Sim. Compartilhe local de partida, destino, horário e detalhes do grupo ao reservar ou entrar em contato com a Revival." },
   ];

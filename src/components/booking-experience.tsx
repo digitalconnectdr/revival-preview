@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { trackBookingExternalOpen, trackBookingPageView, trackBookingStarted } from "@/lib/analytics";
 import { bookingUrl } from "@/lib/site";
 
@@ -8,39 +8,40 @@ type BookingExperienceProps = {
   eyebrow: string;
   title: string;
   intro: string;
-  frameTitle: string;
-  openLabel: string;
+  ctaLabel: string;
+  assistanceEyebrow: string;
+  assistanceTitle: string;
   support: string;
+  contactLabel: string;
+  contactHref: string;
 };
 
-export function BookingExperience({ eyebrow, title, intro, frameTitle, openLabel, support }: BookingExperienceProps) {
-  const hasTrackedLoad = useRef(false);
-
+export function BookingExperience({ eyebrow, title, intro, ctaLabel, assistanceEyebrow, assistanceTitle, support, contactLabel, contactHref }: BookingExperienceProps) {
   useEffect(() => {
     trackBookingPageView();
   }, []);
 
   return (
-    <section className="booking-experience" aria-labelledby="booking-engine-title">
+    <section className="booking-experience" aria-labelledby="booking-experience-title">
       <div className="booking-experience-heading">
         <p className="eyebrow">{eyebrow}</p>
-        <h2 id="booking-engine-title">{title}</h2>
+        <h2 id="booking-experience-title">{title}</h2>
         <p>{intro}</p>
-        <a className="text-link" href={bookingUrl} onClick={() => trackBookingExternalOpen("booking-page-fallback")} rel="noopener noreferrer" target="_blank">
-          {openLabel} <span aria-hidden="true">↗</span>
-        </a>
-        <p className="booking-support">{support}</p>
       </div>
-      <iframe
-        className="booking-engine-frame"
-        onLoad={() => {
-          if (hasTrackedLoad.current) return;
-          hasTrackedLoad.current = true;
-          trackBookingStarted("embedded-booking-engine");
-        }}
-        src={bookingUrl}
-        title={frameTitle}
-      />
+      <div className="booking-experience-action">
+        <span aria-hidden="true" className="booking-experience-mark">R</span>
+        <p className="eyebrow">{eyebrow}</p>
+        <p className="booking-experience-copy">{intro}</p>
+        <a className="button button-gold" href={bookingUrl} onClick={() => { trackBookingStarted("secure-booking-cta"); trackBookingExternalOpen("secure-booking-cta"); }} rel="noopener noreferrer" target="_blank">
+          {ctaLabel} <span aria-hidden="true">↗</span>
+        </a>
+        <div className="booking-experience-support">
+          <p className="eyebrow">{assistanceEyebrow}</p>
+          <h3>{assistanceTitle}</h3>
+          <p>{support}</p>
+          <a className="text-link" href={contactHref}>{contactLabel} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </section>
   );
 }

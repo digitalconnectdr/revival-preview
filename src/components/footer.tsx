@@ -20,9 +20,9 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
   return <footer className="site-footer">
     <div className="container footer-grid">
       <div>
-        <Link className="brand brand-footer notranslate" data-no-translate href={localized("/")} translate="no">
-          <span className="brand-mark">R</span>
-          <span><strong>Revival</strong><small>Transportation Group</small></span>
+        <Link aria-label="Revival Transportation Group" className="brand brand-footer notranslate" data-no-translate href={localized("/")} translate="no">
+          <span aria-hidden="true" className="brand-mark">R</span>
+          <span aria-hidden="true"><strong>Revival</strong><small>Transportation Group</small></span>
         </Link>
         <p>{copy.footerIntro}</p>
         <BookingLink className="text-link" placement="footer">{copy.startReservation} <span aria-hidden="true">↗</span></BookingLink>

@@ -12,19 +12,22 @@ export const metadata: Metadata = pageMetadata(
 export default function BookPage() {
   return <>
     <PageHero
-      eyebrow="Secure online reservation"
+      eyebrow="Revival online reservation"
       title="Book your transportation."
-      intro="Reserve airport transfers, chauffeur transportation and private rides through Revival’s official booking experience."
+      intro="Reserve airport transfers, chauffeur transportation and private rides with Revival Transportation Group."
     />
     <Section>
       <div className="container">
         <BookingExperience
-          eyebrow="Revival online booking"
-          frameTitle="Revival Transportation Group secure online booking"
-          intro="Enter your trip details below to begin a secure reservation with Revival Transportation Group."
-          openLabel="Open booking in a new window"
+          assistanceEyebrow="Need assistance?"
+          assistanceTitle="Talk with Revival."
+          contactHref="/contact"
+          contactLabel="Contact Revival"
+          ctaLabel="Start secure reservation"
+          eyebrow="Revival online reservation"
+          intro="Continue to Revival’s secure reservation system to enter your trip details."
           support="For corporate accounts, group travel or a complex itinerary, contact the Revival team directly."
-          title="Plan your ride with MyLimoBiz."
+          title="Ready to reserve your ride?"
         />
       </div>
     </Section>

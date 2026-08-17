@@ -115,7 +115,7 @@ export const services: Service[] = [
       { src: "/images/services/city-to-city-02.webp", alt: "Private SUV traveling on an open Central Florida highway." },
       { src: "/images/services/city-to-city-03.webp", alt: "Long-distance private travel along a palm-lined coastal causeway." },
     ],
-    highlights: ["Scheduled private travel", "Door-to-door trip details", "Central Florida and select requested markets"],
+    highlights: ["Scheduled private travel", "Door-to-door trip details", "Central Florida and Northeast markets"],
     useCases: ["Intercity trips", "Airport connections", "Planned family travel"],
     useCaseDetails: ["Travel between Central Florida destinations with pickup, destination and timing confirmed in advance.", "Link an airport, port or resort stay to the next destination in a single private itinerary.", "Arrange a door-to-door trip around the party size, luggage and schedule for a family visit."],
     faq: [
@@ -355,7 +355,7 @@ export const googleReviews = {
 
 export const siteFaq = [
   { question: "How do I reserve transportation?", answer: "Use the online booking experience or call Revival Transportation Group. Trip details and availability are confirmed as part of the reservation process." },
-  { question: "Which areas do you serve?", answer: "Central Florida is at the heart of Revival’s service area, including MCO, SFB and Port Canaveral. Contact the team to discuss travel beyond the region." },
+  { question: "Which areas do you serve?", answer: "Revival serves Central Florida, including MCO, SFB, Port Canaveral, Walt Disney World and Universal Orlando, as well as active Northeast markets in New York, New Jersey, Connecticut, Massachusetts and Pennsylvania." },
   { question: "What fleet categories can I request?", answer: "Choose from Business SUV, Premium SUV, Executive Sedan and group transportation options. The team will help match the right category to your plans." },
   { question: "Can I use the website for a custom itinerary?", answer: "Yes. Share the pickup, destination, schedule and party details through the reservation or contact option. Revival will review the request for availability." },
 ];
