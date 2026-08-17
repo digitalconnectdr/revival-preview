@@ -243,7 +243,7 @@ html[data-theme="dark"] .trust-grid strong { color: #f7f4ee; }html[data-theme="d
 .hero-title-accessible { clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
 .hero-title-visual { display: block; }
 .hero-dynamic-line { display: inline-flex; white-space: nowrap; }
-.rotating-hero-word { display: inline-grid; grid-template-columns: var(--rotating-word-width); grid-template-rows: 1.12em; min-width: var(--rotating-word-width); position: relative; vertical-align: -0.08em; }
+.rotating-hero-word { display: inline-grid; grid-template-columns: var(--rotating-word-width); grid-template-rows: 1.12em; margin-left: .16em; min-width: var(--rotating-word-width); position: relative; vertical-align: -0.08em; }
 .rotating-hero-word > span { color: var(--champagne); font-style: italic; font-weight: 400; grid-area: 1 / 1; opacity: 0; transform: translateY(10px); transition: opacity var(--rotating-word-transition) ease, transform var(--rotating-word-transition) cubic-bezier(.22,1,.36,1); white-space: nowrap; }
 .rotating-hero-word > span.is-active { opacity: 1; transform: translateY(0); }
 .rotating-hero-word > span.is-leaving { opacity: 0; transform: translateY(-10px); }
