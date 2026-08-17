@@ -14,7 +14,7 @@ export function RotatingHeroWord({ words, intervalMs = 3200, transitionMs = 450 
   const [reducedMotion, setReducedMotion] = useState(false);
   const intervalRef = useRef<number | null>(null);
   const transitionRef = useRef<number | null>(null);
-  const longestWordLength = Math.max(...words.map((word) => word.length));
+  const longestWordLength = Math.max(...words.map((word) => word.length + 1));
 
   const clearTimers = useCallback(() => {
     if (intervalRef.current !== null) window.clearInterval(intervalRef.current);
@@ -63,6 +63,6 @@ export function RotatingHeroWord({ words, intervalMs = 3200, transitionMs = 450 
     data-rotating-hero-word
     style={{ "--rotating-word-width": `${longestWordLength}ch`, "--rotating-word-transition": `${transitionMs}ms` } as CSSProperties}
   >
-    {words.map((word, index) => <span className={index === activeIndex ? "is-active" : index === leavingIndex ? "is-leaving" : ""} key={word}>{word}</span>)}
+    {words.map((word, index) => <span className={index === activeIndex ? "is-active" : index === leavingIndex ? "is-leaving" : ""} key={word}>{word}.</span>)}
   </span>;
 }
