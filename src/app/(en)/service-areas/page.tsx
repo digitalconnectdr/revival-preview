@@ -5,8 +5,8 @@ import { PageHero, Section, SectionHeading } from "@/components/site-components"
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
-  "Central Florida & Northeast Transportation Markets",
-  "Explore Revival Transportation Group’s Central Florida service area and select Northeast markets, with availability confirmed individually by itinerary.",
+  "Central Florida & Northeast Service Areas",
+  "Professional chauffeur and private transportation services across Central Florida and active Northeast markets, including New York, New Jersey, Connecticut, Massachusetts and Pennsylvania.",
   "/service-areas",
 );
 
@@ -14,16 +14,16 @@ export default function ServiceAreasPage() {
   return <>
     <PageHero
       eyebrow="Where we travel"
-      title="A clear starting point for your trip."
-      intro="Central Florida is Revival’s core service area. Revival also accepts inquiries for select Northeast markets previously included in the company’s service coverage."
+      title="Private transportation across Central Florida and the Northeast."
+      intro="Revival Transportation Group provides professional chauffeur and private transportation services throughout Central Florida and key Northeast markets."
     />
     <Section>
       <div className="container area-page-grid">
         <article className="area-primary">
           <div className="area-page-copy">
-            <p className="eyebrow">Core service area</p>
+            <p className="eyebrow">Active service region</p>
             <h2>Central Florida</h2>
-            <p>From airport and port transfers to corporate and local travel, Revival helps you move comfortably throughout Central Florida.</p>
+            <p>Revival provides professional private transportation in Orlando, Kissimmee, Lake Nona, Winter Park, Sanford, Tampa, Daytona Beach, Cocoa Beach, Port Canaveral and major Central Florida destinations.</p>
             <div className="area-links">
               <Link href="/airports/mco"><strong>MCO · Orlando International Airport</strong><span>Private airport transportation</span></Link>
               <Link href="/airports/sfb"><strong>SFB · Orlando Sanford International Airport</strong><span>Private airport transportation</span></Link>
@@ -34,10 +34,10 @@ export default function ServiceAreasPage() {
         </article>
         <article className="area-secondary">
           <div className="area-page-copy">
-            <p className="eyebrow">Select Northeast markets</p>
+            <p className="eyebrow">Active service region</p>
             <h2>New York, New Jersey, Connecticut, Massachusetts and Pennsylvania</h2>
-            <p>Revival also accepts inquiries for select Northeast markets previously included in the company’s service coverage. Availability and service arrangements are confirmed individually based on the itinerary.</p>
-            <small>Revival does not represent direct operation or a dedicated fleet in these markets.</small>
+            <p>Revival provides professional private transportation and chauffeur service across key Northeast markets, including New York, New Jersey, Connecticut, Massachusetts and Pennsylvania.</p>
+            <small>The locations shown represent major service areas. For transportation needs beyond the cities listed, contact our team to coordinate your trip.</small>
           </div>
           <ServiceAreaCoverageVisual region="northeast" />
         </article>

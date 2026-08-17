@@ -1,12 +1,32 @@
 import type { Metadata } from "next";
-import { BookingLink } from "@/components/booking-link";
-import { PageHero, Section, SectionHeading } from "@/components/site-components";
-import { TrackedContactLink } from "@/components/tracked-contact-link";
-import { business } from "@/content/business";
-import { phoneHref } from "@/lib/site";
+import { BookingExperience } from "@/components/booking-experience";
+import { PageHero, Section } from "@/components/site-components";
 import { pageMetadata } from "@/lib/seo";
 
-// English route.
+export const metadata: Metadata = pageMetadata(
+  "Book Private Transportation",
+  "Book airport transfers, chauffeur transportation and private rides online with Revival Transportation Group.",
+  "/book",
+);
 
-export const metadata: Metadata = pageMetadata("Book a Ride", "Start a private transportation reservation with Revival Transportation Group.", "/book");
-export default function BookPage() { const phone = business.phone.value ?? ""; return <><PageHero eyebrow="Start your reservation" title="A few details are all it takes to begin." intro="Continue to Revival’s booking experience to share your trip. You can also call if you need help with a custom itinerary." /><Section><div className="container booking-layout"><div><SectionHeading eyebrow="Before you begin" title="Have these details nearby." /><ul className="check-list"><li><span>✓</span>Pickup and destination</li><li><span>✓</span>Date and preferred travel time</li><li><span>✓</span>Passenger and luggage details</li><li><span>✓</span>Any flight, cruise or multi-stop information</li></ul></div><div className="booking-box"><p className="eyebrow">Secure booking</p><h2>Continue to Revival’s reservation experience.</h2><p>The booking link opens in a new tab. Campaign parameters are preserved where the external platform supports them; personal details are not added to the URL.</p><BookingLink className="button button-gold button-full" placement="book-page">Continue to booking <span aria-hidden="true">↗</span></BookingLink><TrackedContactLink channel="phone" className="text-link" href={phoneHref(phone)} placement="book-page">Prefer to call? {phone} <span aria-hidden="true">→</span></TrackedContactLink></div></div></Section></>; }
+export default function BookPage() {
+  return <>
+    <PageHero
+      eyebrow="Secure online reservation"
+      title="Book your transportation."
+      intro="Reserve airport transfers, chauffeur transportation and private rides through Revival’s official booking experience."
+    />
+    <Section>
+      <div className="container">
+        <BookingExperience
+          eyebrow="Revival online booking"
+          frameTitle="Revival Transportation Group secure online booking"
+          intro="Enter your trip details below to begin a secure reservation with Revival Transportation Group."
+          openLabel="Open booking in a new window"
+          support="For corporate accounts, group travel or a complex itinerary, contact the Revival team directly."
+          title="Plan your ride with MyLimoBiz."
+        />
+      </div>
+    </Section>
+  </>;
+}

@@ -1,5 +1,9 @@
 export type MeasurementEventName =
   | "page_view"
+  | "book_cta_click"
+  | "booking_page_view"
+  | "booking_started"
+  | "booking_external_open"
   | "booking_start"
   | "phone_click"
   | "email_click"
@@ -121,6 +125,23 @@ export function trackBookingStart(placement: string) {
   if (context.page_type === "route") trackEvent("route_booking_click", { cta_location: placement, route: context.route });
   if (context.page_type === "service") trackEvent("service_booking_click", { cta_location: placement, service: context.service });
   if (placement === "mobile-web-app") trackEvent("qr_booking_click", { cta_location: placement });
+}
+
+export function trackBookingCtaClick(placement: string) {
+  trackEvent("book_cta_click", { cta_location: placement });
+  trackBookingStart(placement);
+}
+
+export function trackBookingPageView() {
+  trackEvent("booking_page_view", { cta_location: "booking-page" });
+}
+
+export function trackBookingStarted(placement: string) {
+  trackEvent("booking_started", { cta_location: placement });
+}
+
+export function trackBookingExternalOpen(placement: string) {
+  trackEvent("booking_external_open", { cta_location: placement });
 }
 
 export function trackContactClick(channel: "phone" | "email" | "corporate" | "instagram", placement: string) {
