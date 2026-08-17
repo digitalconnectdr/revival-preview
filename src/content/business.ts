@@ -39,7 +39,7 @@ export const business = {
     status: "site_verified",
   },
   bookingUrl: {
-    value: "https://pwa.mylimobiz.com/revivaltransportationgroup/",
+    value: "https://book.mylimobiz.com/v4/revivaltransportationgroup",
     status: "site_verified",
   },
   googlePlaceId: {
