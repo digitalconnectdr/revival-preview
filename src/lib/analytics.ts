@@ -1,44 +1,166 @@
+export type MeasurementEventName =
+  | "page_view"
+  | "booking_start"
+  | "phone_click"
+  | "email_click"
+  | "corporate_contact_click"
+  | "airport_booking_click"
+  | "route_booking_click"
+  | "service_booking_click"
+  | "qr_booking_click"
+  | "instagram_click"
+  | "language_switch";
+
+export type MeasurementConsent = { analytics: boolean; advertising: boolean };
+
 declare global {
   interface Window {
-    dataLayer?: unknown[];
+    dataLayer?: Array<Record<string, unknown> | unknown[]>;
     gtag?: (...args: unknown[]) => void;
   }
 }
 
-const bookingConversion = process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_CONVERSION?.trim() || process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL?.trim();
-const contactConversion = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONTACT_CONVERSION?.trim();
+export const consentStorageKey = "revival-measurement-consent";
+export const consentChangeEvent = "revival-measurement-consent-change";
+export const consentPreferencesEvent = "revival-measurement-open-preferences";
 
-export function trackEvent(eventName: string, parameters: Record<string, string | number | boolean> = {}) {
-  if (typeof window === "undefined") return;
+const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "gbraid", "wbraid"] as const;
+const measurementEnabled = process.env.NEXT_PUBLIC_SITE_ENV === "production" && process.env.NEXT_PUBLIC_TRACKING_ENABLED === "true";
+const measurementDebug = process.env.NEXT_PUBLIC_MEASUREMENT_DEBUG === "true";
+
+type TrackingContext = {
+  locale: "en" | "es" | "pt";
+  page_path: string;
+  page_type: string;
+  service?: string;
+  airport?: string;
+  route?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  utm_term?: string;
+  utm_content?: string;
+  gclid?: string;
+  gbraid?: string;
+  wbraid?: string;
+};
+
+function isLocale(value: string | undefined): value is TrackingContext["locale"] {
+  return value === "en" || value === "es" || value === "pt";
+}
+
+function pageDetails(pathname: string) {
+  const segments = pathname.split("/").filter(Boolean);
+  const locale = isLocale(segments[0]) ? segments[0] : "en";
+  if (isLocale(segments[0])) segments.shift();
+  const [section, slug] = segments;
+
+  if (section === "services" && slug) return { locale, page_type: "service", service: slug };
+  if (section === "airports" && slug) return { locale, page_type: "airport", airport: slug };
+  if (section === "routes" && slug) return { locale, page_type: "route", route: slug };
+  if (section === "corporate") return { locale, page_type: "corporate" };
+  if (section === "contact") return { locale, page_type: "contact" };
+  if (section === "book") return { locale, page_type: "booking" };
+  if (section === "service-areas") return { locale, page_type: "service_areas" };
+  if (section === "services") return { locale, page_type: "services" };
+  return { locale, page_type: section || "home" };
+}
+
+export function getTrackingContext(pathname = "/", search = ""): TrackingContext {
+  const params = new URLSearchParams(search);
+  const context: TrackingContext = { page_path: pathname || "/", ...pageDetails(pathname || "/") };
+  campaignKeys.forEach((key) => {
+    const value = params.get(key);
+    if (value) context[key] = value;
+  });
+  return context;
+}
+
+function currentContext() {
+  if (typeof window === "undefined") return getTrackingContext();
+  return getTrackingContext(window.location.pathname, window.location.search);
+}
+
+function createEventId() {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID();
+  return `revival-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function canRecordMeasurement() {
+  if (measurementDebug) return true;
+  const consent = readConsent();
+  return measurementEnabled && Boolean(consent?.analytics || consent?.advertising);
+}
+
+export function isMeasurementEnabled() {
+  return measurementEnabled;
+}
+
+export function isMeasurementDebugEnabled() {
+  return measurementDebug;
+}
+
+export function trackEvent(event: MeasurementEventName, parameters: Record<string, string | number | boolean | undefined> = {}) {
+  if (typeof window === "undefined" || !canRecordMeasurement()) return;
+  const payload = { event, event_id: createEventId(), ...currentContext(), ...parameters };
   window.dataLayer = window.dataLayer ?? [];
-  window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args));
-  window.gtag("event", eventName, parameters);
+  window.dataLayer.push(payload);
+  if (measurementDebug) window.dispatchEvent(new CustomEvent("revival-measurement-debug", { detail: payload }));
+}
+
+export function trackPageView() {
+  trackEvent("page_view");
 }
 
 export function trackBookingStart(placement: string) {
-  trackEvent("book_ride_click", { placement });
-  trackEvent("external_booking_click", { placement });
-  if (placement.includes("route")) trackEvent("route_booking_click", { placement });
-  if (placement.includes("airport")) trackEvent("airport_booking_click", { placement });
-  if (placement === "mobile-web-app") trackEvent("qr_booking_click", { placement });
-  if (bookingConversion) trackEvent("conversion", { send_to: bookingConversion, placement });
+  const context = currentContext();
+  trackEvent("booking_start", { cta_location: placement });
+  if (context.page_type === "airport") trackEvent("airport_booking_click", { cta_location: placement, airport: context.airport });
+  if (context.page_type === "route") trackEvent("route_booking_click", { cta_location: placement, route: context.route });
+  if (context.page_type === "service") trackEvent("service_booking_click", { cta_location: placement, service: context.service });
+  if (placement === "mobile-web-app") trackEvent("qr_booking_click", { cta_location: placement });
 }
 
 export function trackContactClick(channel: "phone" | "email" | "corporate" | "instagram", placement: string) {
-  const eventName = channel === "phone" ? "phone_click" : channel === "email" ? "email_click" : channel === "corporate" ? "corporate_contact_click" : "instagram_click";
-  trackEvent(eventName, { placement });
-  if (contactConversion) trackEvent("conversion", { send_to: contactConversion, placement, channel });
+  const event = channel === "phone" ? "phone_click" : channel === "email" ? "email_click" : channel === "corporate" ? "corporate_contact_click" : "instagram_click";
+  trackEvent(event, { cta_location: placement });
 }
 
 export function trackLanguageSwitch(fromLocale: string, toLocale: string, path: string) {
-  if (fromLocale !== toLocale) trackEvent("language_switch", { from_locale: fromLocale, to_locale: toLocale, path });
+  if (fromLocale !== toLocale) trackEvent("language_switch", { from_locale: fromLocale, to_locale: toLocale, page_path: path, cta_location: "language_selector" });
 }
 
-/**
- * Retained as a safe no-op-compatible analytics event for the disabled contact
- * form component. A real form provider can call this after server-side delivery
- * is verified; no lead is claimed or sent while CONTACT_FORM_MODE=disabled.
- */
-export function trackContactLead(placement: string) {
-  trackEvent("contact_form_submit", { placement, contact_form_mode: process.env.NEXT_PUBLIC_CONTACT_FORM_MODE ?? "disabled" });
+export function readConsent(): MeasurementConsent | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(consentStorageKey) ?? "null") as Partial<MeasurementConsent> | null;
+    if (!parsed || typeof parsed.analytics !== "boolean" || typeof parsed.advertising !== "boolean") return null;
+    return { analytics: parsed.analytics, advertising: parsed.advertising };
+  } catch {
+    return null;
+  }
+}
+
+export function consentFor(consent: MeasurementConsent) {
+  const analytics = consent.analytics ? "granted" : "denied";
+  const advertising = consent.advertising ? "granted" : "denied";
+  return { analytics_storage: analytics, ad_storage: advertising, ad_user_data: advertising, ad_personalization: advertising };
+}
+
+export function updateGoogleConsent(consent: MeasurementConsent) {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer ?? [];
+  window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args));
+  window.gtag("consent", "update", consentFor(consent));
+}
+
+export function saveConsent(consent: MeasurementConsent) {
+  if (typeof window === "undefined") return;
+  const previousConsent = readConsent();
+  window.localStorage.setItem(consentStorageKey, JSON.stringify(consent));
+  updateGoogleConsent(consent);
+  window.dispatchEvent(new Event(consentChangeEvent));
+  if (!previousConsent || (!previousConsent.analytics && !previousConsent.advertising)) {
+    if (consent.analytics || consent.advertising) trackPageView();
+  }
 }

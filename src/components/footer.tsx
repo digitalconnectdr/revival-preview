@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BookingLink } from "@/components/booking-link";
+import { CookiePreferencesLink } from "@/components/google-tag";
 import { TrackedContactLink } from "@/components/tracked-contact-link";
 import { business } from "@/content/business";
 import { getLocalizedRoutes, getLocalizedServices } from "@/i18n/content";
@@ -33,7 +34,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
     </div>
     <div className="container footer-bottom">
       <span className="footer-credit notranslate" data-no-translate translate="no">© {new Date().getFullYear()} Revival Transportation Group <b aria-hidden="true">|</b> Powered by <a href="https://digitalconnectdr.com/" rel="noopener noreferrer" target="_blank">JPRS Digital Connect</a></span>
-      <span><Link href={localized("/privacy-policy")}>{copy.privacy}</Link><Link href={localized("/terms-of-service")}>{copy.terms}</Link><Link href={localized("/accessibility")}>{copy.accessibility}</Link></span>
+      <span><Link href={localized("/privacy-policy")}>{copy.privacy}</Link><Link href={localized("/terms-of-service")}>{copy.terms}</Link><Link href={localized("/accessibility")}>{copy.accessibility}</Link><CookiePreferencesLink>{copy.cookiePreferences}</CookiePreferencesLink></span>
     </div>
   </footer>;
 }

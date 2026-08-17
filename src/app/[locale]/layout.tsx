@@ -7,6 +7,7 @@ import { CookieConsent, GoogleTag } from "@/components/google-tag";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
+import { TrackedContactLink } from "@/components/tracked-contact-link";
 import { business } from "@/content/business";
 import { getLocalizedServices } from "@/i18n/content";
 import { isLocale, localeMetadata, locales, type Locale } from "@/i18n/config";
@@ -50,5 +51,5 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const copy = getUi(locale);
   const phone = business.phone.value?.replace(/[^+\d]/g, "") ?? "";
 
-  return <html className={`${sans.variable} ${serif.variable}`} lang={localeMetadata[locale].htmlLang} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><JsonLd data={businessSchema(getLocalizedServices(locale), locale)} /><a className="skip-link" href="#main-content">{locale === "es" ? "Ir al contenido" : "Ir para o conteúdo"}</a><Header locale={locale} /><main id="main-content">{children}</main><Footer locale={locale} /><CookieConsent locale={locale} /><a className="floating-call" href={`tel:${phone}`}><span aria-hidden="true">✦</span> {copy.call}</a></body></html>;
+  return <html className={`${sans.variable} ${serif.variable}`} lang={localeMetadata[locale].htmlLang} suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><JsonLd data={businessSchema(getLocalizedServices(locale), locale)} /><a className="skip-link" href="#main-content">{locale === "es" ? "Ir al contenido" : "Ir para o conteúdo"}</a><Header locale={locale} /><main id="main-content">{children}</main><Footer locale={locale} /><CookieConsent locale={locale} /><TrackedContactLink channel="phone" className="floating-call" href={`tel:${phone}`} placement="floating-call"><span aria-hidden="true">✦</span> {copy.call}</TrackedContactLink></body></html>;
 }

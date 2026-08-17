@@ -6,6 +6,7 @@ import { CookieConsent, GoogleTag } from "@/components/google-tag";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
+import { TrackedContactLink } from "@/components/tracked-contact-link";
 import { business } from "@/content/business";
 import { services } from "@/content/data";
 import { localizedAlternates } from "@/i18n/config";
@@ -32,5 +33,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html className={`${sans.variable} ${serif.variable}`} lang="en-US" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><JsonLd data={businessSchema(services)} /><a className="skip-link" href="#main-content">Skip to content</a><Header locale="en" /><main id="main-content">{children}</main><Footer locale="en" /><CookieConsent locale="en" /><a className="floating-call" href={`tel:${business.phone.value?.replace(/[^+\d]/g, "")}`}><span aria-hidden="true">✦</span> Call</a></body></html>;
+  return <html className={`${sans.variable} ${serif.variable}`} lang="en-US" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{ __html: preferenceBootstrap }} /></head><body><GoogleTag /><JsonLd data={businessSchema(services)} /><a className="skip-link" href="#main-content">Skip to content</a><Header locale="en" /><main id="main-content">{children}</main><Footer locale="en" /><CookieConsent locale="en" /><TrackedContactLink channel="phone" className="floating-call" href={`tel:${business.phone.value?.replace(/[^+\d]/g, "")}`} placement="floating-call"><span aria-hidden="true">✦</span> Call</TrackedContactLink></body></html>;
 }

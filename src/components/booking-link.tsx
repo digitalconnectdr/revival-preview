@@ -6,7 +6,7 @@ import { bookingUrl } from "@/lib/site";
 
 type BookingLinkProps = PropsWithChildren<AnchorHTMLAttributes<HTMLAnchorElement>> & { placement?: string };
 
-const allowedCampaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"];
+const allowedCampaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "gbraid", "wbraid"];
 
 export function BookingLink({ children, placement, href, onClick, ...props }: BookingLinkProps) {
   return (
