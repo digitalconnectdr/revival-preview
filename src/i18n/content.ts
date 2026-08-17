@@ -30,29 +30,41 @@ function serviceDetails(locale: Locale, service: Service) {
   const generic = locale === "es"
     ? { highlights: ["Transporte privado programado", "Detalles revisados con la reserva", "Disponibilidad confirmada antes de viajar"], cases: ["Itinerarios planificados", "Necesidades específicas del viaje", "Coordinación directa"], detail: ["Comparte los detalles principales para que el equipo revise la solicitud.", "La recogida, el destino, los pasajeros y el equipaje ayudan a confirmar el arreglo adecuado.", "Revival revisa la disponibilidad antes de finalizar la reserva."], ask: "¿Cómo solicito este servicio?", answer: "Comparte la recogida, destino, fecha y detalles de viaje. Revival revisará la disponibilidad antes de confirmar la reserva.", fit: "¿Qué información debo incluir?", fitAnswer: "Incluye pasajeros, equipaje y cualquier detalle del itinerario que pueda afectar la planificación." }
     : { highlights: ["Transporte privativo programado", "Detalhes revisados na reserva", "Disponibilidade confirmada antes da viagem"], cases: ["Roteiros planejados", "Necessidades específicas da viagem", "Coordenação direta"], detail: ["Compartilhe os detalhes principais para que a equipe analise a solicitação.", "Local de partida, destino, passageiros e bagagens ajudam a confirmar a opção adequada.", "A Revival analisa a disponibilidade antes de finalizar a reserva."], ask: "Como solicito este serviço?", answer: "Compartilhe local de partida, destino, data e detalhes da viagem. A Revival analisará a disponibilidade antes de confirmar a reserva.", fit: "Quais informações devo incluir?", fitAnswer: "Inclua passageiros, bagagens e qualquer detalhe do roteiro que possa afetar o planejamento." };
-  const airportFaq = locale === "es" ? [
-    { question: "¿Puedo solicitar transporte para un vuelo temprano o tarde?", answer: "Sí. La disponibilidad se conversa con el equipo de reservas cuando envías los detalles del viaje." },
-    { question: "¿Qué aeropuertos puedo solicitar?", answer: "El sitio identifica Orlando International Airport (MCO), Sanford Airport (SFB) y solicitudes de aviación privada." },
-    { question: "¿Debo incluir mi vuelo?", answer: "Incluye la aerolínea y el horario de vuelo para que el plan de recogida pueda revisarse con claridad." },
-    { question: "¿Pueden considerar el equipaje?", answer: "Sí. Indica pasajeros, maletas y artículos grandes para revisar la categoría de vehículo adecuada." },
-    { question: "¿Puedo ir del aeropuerto a un hotel, resort o puerto?", answer: "Sí. Comparte el destino final y cualquier detalle del itinerario para revisar la solicitud." },
-    { question: "¿El seguimiento de vuelo está garantizado?", answer: "No se prometen procedimientos o tiempos garantizados. Revival confirma el arreglo solicitado con la reserva." },
-  ] : [
-    { question: "Posso solicitar transporte para um voo cedo ou tarde?", answer: "Sim. A disponibilidade é discutida com a equipe de reservas quando você envia os detalhes da viagem." },
-    { question: "Quais aeroportos posso solicitar?", answer: "O site identifica Orlando International Airport (MCO), Sanford Airport (SFB) e solicitações de aviação privada." },
-    { question: "Devo incluir meu voo?", answer: "Inclua a companhia aérea e o horário do voo para que o plano de encontro possa ser analisado com clareza." },
-    { question: "As bagagens podem ser consideradas?", answer: "Sim. Informe passageiros, malas e itens maiores para analisar a categoria de veículo adequada." },
-    { question: "Posso ir do aeroporto para hotel, resort ou porto?", answer: "Sim. Compartilhe o destino final e os detalhes do roteiro para que a solicitação seja analisada." },
-    { question: "O acompanhamento do voo é garantido?", answer: "Não prometemos procedimentos ou horários garantidos. A Revival confirma a opção solicitada com a reserva." },
-  ];
+  const airportDetails = locale === "es" ? {
+    highlights: ["Transporte para MCO y SFB", "Conexiones con hoteles, resorts y Port Canaveral", "Vehículo revisado según pasajeros y equipaje"],
+    cases: ["Llegadas a MCO o SFB", "Salidas desde hoteles y resorts", "Viajes de aeropuerto a crucero o negocios"],
+    detail: ["Comparte el aeropuerto de llegada, los datos del vuelo y el destino final en Florida Central para revisar la recogida solicitada.", "Para un vuelo de salida, incluye el hotel o resort, horario de recogida preferido, pasajeros y equipaje al solicitar el viaje.", "Las conexiones con Port Canaveral, citas de negocios u otra parada planificada se revisan con el itinerario completo antes de reservar."],
+    faq: [
+      { question: "¿Puedo solicitar transporte privado para una llegada a MCO o SFB?", answer: "Sí. Incluye el aeropuerto, los datos del vuelo, destino final y número de pasajeros para que Revival revise el traslado de llegada solicitado." },
+      { question: "¿Puedo solicitar una salida al aeropuerto desde un hotel o resort?", answer: "Sí. Comparte la dirección de recogida, horario del vuelo, pasajeros y equipaje para revisar la salida solicitada." },
+      { question: "¿Se puede solicitar transporte para vuelos temprano o tarde?", answer: "Sí. Las solicitudes temprano o tarde se pueden conversar con el equipo de reservas; la disponibilidad se confirma con la reserva." },
+      { question: "¿Cómo debo planificar el equipaje y el ajuste del vehículo?", answer: "Indica el número de pasajeros, maletas y artículos grandes. Revival revisa la categoría de vehículo adecuada antes de finalizar la reserva." },
+      { question: "¿Puedo solicitar un viaje del aeropuerto a un hotel o resort?", answer: "Sí. Incluye el nombre del hotel o resort y los detalles de llegada para revisar la solicitud completa." },
+      { question: "¿El transporte al aeropuerto puede conectar con Port Canaveral o una cita de negocios?", answer: "Sí. Comparte la terminal de cruceros, lugar de reunión u otra parada planificada junto con los datos del vuelo para revisar el itinerario como una sola solicitud." },
+      { question: "¿Qué detalles debo incluir al reservar un traslado al aeropuerto?", answer: "Incluye el aeropuerto, aerolínea u horario de vuelo cuando estén disponibles, recogida o destino, pasajeros, equipaje y cualquier parada importante. El arreglo final se confirma durante la reserva." },
+    ],
+  } : {
+    highlights: ["Transporte para MCO e SFB", "Conexões com hotéis, resorts e Port Canaveral", "Veículo avaliado conforme passageiros e bagagens"],
+    cases: ["Chegadas a MCO ou SFB", "Partidas de hotéis e resorts", "Viagens do aeroporto para cruzeiro ou negócios"],
+    detail: ["Informe o aeroporto de chegada, os dados do voo e o destino final na Flórida Central para analisar a retirada solicitada.", "Para um voo de partida, informe o hotel ou resort, horário de retirada preferido, passageiros e bagagens ao solicitar a viagem.", "Conexões com Port Canaveral, compromissos de negócios ou outra parada planejada são analisadas com o roteiro completo antes da reserva."],
+    faq: [
+      { question: "Posso solicitar transporte privativo para uma chegada a MCO ou SFB?", answer: "Sim. Informe o aeroporto, os dados do voo, destino final e número de passageiros para que a Revival analise o traslado de chegada solicitado." },
+      { question: "Posso solicitar uma partida para o aeroporto de um hotel ou resort?", answer: "Sim. Compartilhe o endereço de partida, horário do voo, passageiros e bagagens para analisar a partida solicitada." },
+      { question: "É possível solicitar transporte para voos cedo ou tarde?", answer: "Sim. Solicitações cedo ou tarde podem ser conversadas com a equipe de reservas; a disponibilidade é confirmada com a reserva." },
+      { question: "Como devo planejar as bagagens e a adequação do veículo?", answer: "Informe o número de passageiros, malas e itens maiores. A Revival analisa a categoria de veículo adequada antes de finalizar a reserva." },
+      { question: "Posso solicitar uma viagem do aeroporto para um hotel ou resort?", answer: "Sim. Inclua o nome do hotel ou resort e os detalhes de chegada para analisar a solicitação completa." },
+      { question: "O transporte para o aeroporto pode conectar com Port Canaveral ou um compromisso de negócios?", answer: "Sim. Informe o terminal de cruzeiros, local da reunião ou outra parada planejada junto com os dados do voo para analisar o roteiro como uma única solicitação." },
+      { question: "Quais detalhes devo incluir ao reservar um traslado para o aeroporto?", answer: "Inclua o aeroporto, companhia aérea ou horário do voo quando disponíveis, local de partida ou destino, passageiros, bagagens e qualquer parada importante. A opção final é confirmada durante a reserva." },
+    ],
+  };
   return {
     ...service,
     ...copy,
     images: service.images.map((image) => ({ ...image, alt: locale === "es" ? `Servicio de transporte privado: ${copy.name}.` : `Serviço de transporte privativo: ${copy.name}.` })),
-    highlights: generic.highlights,
-    useCases: generic.cases,
-    useCaseDetails: generic.detail,
-    faq: service.slug === "airport-transfers" ? airportFaq : [{ question: generic.ask, answer: generic.answer }, { question: generic.fit, answer: generic.fitAnswer }],
+    highlights: service.slug === "airport-transfers" ? airportDetails.highlights : generic.highlights,
+    useCases: service.slug === "airport-transfers" ? airportDetails.cases : generic.cases,
+    useCaseDetails: service.slug === "airport-transfers" ? airportDetails.detail : generic.detail,
+    faq: service.slug === "airport-transfers" ? airportDetails.faq : [{ question: generic.ask, answer: generic.answer }, { question: generic.fit, answer: generic.fitAnswer }],
   };
 }
 

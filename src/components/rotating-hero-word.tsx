@@ -63,6 +63,6 @@ export function RotatingHeroWord({ words, intervalMs = 3200, transitionMs = 450 
     data-rotating-hero-word
     style={{ "--rotating-word-width": `${longestWordLength}ch`, "--rotating-word-transition": `${transitionMs}ms` } as CSSProperties}
   >
-    {words.map((word, index) => <span className={index === activeIndex ? "is-active" : index === leavingIndex ? "is-leaving" : ""} key={word}>{word}.</span>)}
+    {words.map((word, index) => <span aria-hidden="true" className={index === activeIndex ? "is-active" : index === leavingIndex ? "is-leaving" : ""} data-word={`${word}.`} key={word} />)}
   </span>;
 }

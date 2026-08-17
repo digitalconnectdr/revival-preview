@@ -19,6 +19,7 @@ test("rotates the premium hero word without moving the fixed second line", async
     const word = page.locator("[data-rotating-hero-word]");
     const staticLine = page.locator("[data-hero-static-line]");
     await expect(word).toHaveAttribute("data-active-word", locale.first);
+    await expect(word).toHaveText("");
     await expect(staticLine).toHaveText(locale.ending);
     const initialTop = (await staticLine.boundingBox())?.y;
     await page.waitForTimeout(3_700);

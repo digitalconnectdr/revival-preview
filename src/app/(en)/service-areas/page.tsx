@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "Central Florida & Northeast Transportation Markets",
-  "Explore Revival Transportation Group’s Central Florida service area and published Northeast markets, subject to itinerary review and availability.",
+  "Explore Revival Transportation Group’s Central Florida service area and select Northeast markets, with availability confirmed individually by itinerary.",
   "/service-areas",
 );
 
@@ -15,7 +15,7 @@ export default function ServiceAreasPage() {
     <PageHero
       eyebrow="Where we travel"
       title="A clear starting point for your trip."
-      intro="Central Florida is Revival’s core service area. Select Northeast markets can be discussed for published travel requests, subject to itinerary review and availability."
+      intro="Central Florida is Revival’s core service area. Revival also accepts inquiries for select Northeast markets previously included in the company’s service coverage."
     />
     <Section>
       <div className="container area-page-grid">
@@ -34,10 +34,10 @@ export default function ServiceAreasPage() {
         </article>
         <article className="area-secondary">
           <div className="area-page-copy">
-            <p className="eyebrow">Published Northeast markets</p>
+            <p className="eyebrow">Select Northeast markets</p>
             <h2>New York, New Jersey, Connecticut, Massachusetts and Pennsylvania</h2>
-            <p>These markets have been part of Revival’s published positioning. Travel requests are reviewed individually; contact the team with your itinerary to discuss current availability.</p>
-            <small>Availability, service arrangement and travel details are confirmed before booking.</small>
+            <p>Revival also accepts inquiries for select Northeast markets previously included in the company’s service coverage. Availability and service arrangements are confirmed individually based on the itinerary.</p>
+            <small>Revival does not represent direct operation or a dedicated fleet in these markets.</small>
           </div>
           <ServiceAreaCoverageVisual region="northeast" />
         </article>
