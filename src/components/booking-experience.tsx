@@ -30,8 +30,6 @@ export function BookingExperience({ eyebrow, title, intro, ctaLabel, assistanceE
       </div>
       <div className="booking-experience-action">
         <span aria-hidden="true" className="booking-experience-mark">R</span>
-        <p className="eyebrow">{eyebrow}</p>
-        <p className="booking-experience-copy">{intro}</p>
         <a className="button button-gold" href={bookingUrl} onClick={() => { trackBookingStarted("secure-booking-cta"); trackBookingExternalOpen("secure-booking-cta"); }} rel="noopener noreferrer" target="_blank">
           {ctaLabel} <span aria-hidden="true">↗</span>
         </a>

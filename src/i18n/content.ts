@@ -150,12 +150,12 @@ export function getLocalizedSiteFaq(locale: Locale) {
   if (locale === "en") return siteFaq;
   return locale === "es" ? [
     { question: "¿Cómo reservo transporte?", answer: "Usa la experiencia de reserva en línea o llama a Revival Transportation Group. Los detalles y la disponibilidad se confirman durante el proceso de reserva." },
-    { question: "¿Qué áreas atienden?", answer: "Revival atiende Florida Central, incluyendo MCO, SFB, Puerto Cañaveral, Walt Disney World y Universal Orlando, además de mercados activos del noreste en Nueva York, Nueva Jersey, Connecticut, Massachusetts y Pensilvania." },
+    { question: "¿Qué áreas atienden?", answer: "Revival Transportation Group atiende Florida Central y mercados del noreste, incluidos Nueva York, Nueva Jersey, Connecticut, Massachusetts y Pensilvania. Las ubicaciones mostradas representan áreas de servicio principales; contacta a Revival para coordinar tu itinerario específico." },
     { question: "¿Qué categorías de vehículos puedo solicitar?", answer: "Puedes solicitar SUV ejecutiva, SUV Premium, sedán ejecutivo y opciones de transporte grupal. El equipo ayudará a ajustar la categoría a tu plan." },
     { question: "¿Puedo solicitar un itinerario personalizado?", answer: "Sí. Comparte recogida, destino, horario y detalles del grupo al reservar o contactar a Revival." },
   ] : [
     { question: "Como reservo transporte?", answer: "Use a experiência de reserva online ou ligue para a Revival Transportation Group. Os detalhes e a disponibilidade são confirmados durante a reserva." },
-    { question: "Quais áreas são atendidas?", answer: "A Revival atende a Flórida Central, incluindo MCO, SFB, Porto Canaveral, Walt Disney World e Universal Orlando, além de mercados ativos do Nordeste em Nova York, Nova Jersey, Connecticut, Massachusetts e Pensilvânia." },
+    { question: "Quais áreas são atendidas?", answer: "A Revival Transportation Group atende a Flórida Central e mercados do Nordeste, incluindo Nova York, Nova Jersey, Connecticut, Massachusetts e Pensilvânia. Os locais mostrados representam áreas principais de serviço; entre em contato com a Revival para coordenar seu itinerário específico." },
     { question: "Quais categorias de veículo posso solicitar?", answer: "Você pode solicitar SUV executiva, SUV Premium, sedã executivo e opções de transporte em grupo. A equipe ajudará a adequar a categoria ao seu plano." },
     { question: "Posso solicitar um roteiro personalizado?", answer: "Sim. Compartilhe local de partida, destino, horário e detalhes do grupo ao reservar ou entrar em contato com a Revival." },
   ];

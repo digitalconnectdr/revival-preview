@@ -24,7 +24,7 @@ export default function HomePage() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <Eyebrow>Central Florida private transportation</Eyebrow>
-          <h1><span className="hero-title-accessible">{hero.accessibleText}</span><span aria-hidden="true" className="hero-title-visual"><span className="hero-dynamic-line">{hero.lead}<RotatingHeroWord words={hero.words} /></span><br /><span data-hero-static-line>{hero.ending}</span></span></h1>
+          <h1 aria-label={hero.accessibleText}><span aria-hidden="true" className="hero-title-visual"><span className="hero-dynamic-line">{hero.lead}<RotatingHeroWord words={hero.words} /></span><br /><span data-hero-static-line>{hero.ending}</span></span></h1>
           <p>Private transportation for airport, corporate, cruise and city-to-city travel — coordinated around the details that matter.</p>
           <div className="hero-actions">
             <PrimaryCta placement="hero-primary" />

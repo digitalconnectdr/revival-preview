@@ -21,7 +21,7 @@ export function Footer({ locale = "en" }: { locale?: Locale }) {
     <div className="container footer-grid">
       <div>
         <Link aria-label="Revival Transportation Group" className="brand brand-footer notranslate" data-no-translate href={localized("/")} translate="no">
-          <span aria-hidden="true" className="brand-mark">R</span>
+          <span aria-hidden="true" className="brand-mark" />
           <span aria-hidden="true"><strong>Revival</strong><small>Transportation Group</small></span>
         </Link>
         <p>{copy.footerIntro}</p>
