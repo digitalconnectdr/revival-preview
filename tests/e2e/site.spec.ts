@@ -6,6 +6,36 @@ test("homepage has the primary booking call to action", async ({ page }) => {
   await expect(page.locator(".hero .button").first()).toBeVisible();
 });
 
+test("rotates the premium hero word without moving the fixed second line", async ({ page }) => {
+  const locales = [
+    { path: "/", accessible: "Arrive with purpose. Travel with ease.", first: "purpose", second: "style", ending: "Travel with ease." },
+    { path: "/es", accessible: "Llega con propósito. Viaja con tranquilidad.", first: "propósito", second: "estilo", ending: "Viaja con tranquilidad." },
+    { path: "/pt", accessible: "Chegue com propósito. Viaje com tranquilidade.", first: "propósito", second: "estilo", ending: "Viaje com tranquilidade." },
+  ];
+
+  for (const locale of locales) {
+    await page.goto(locale.path);
+    await expect(page.getByRole("heading", { name: locale.accessible })).toBeVisible();
+    const word = page.locator("[data-rotating-hero-word]");
+    const staticLine = page.locator("[data-hero-static-line]");
+    await expect(word).toHaveAttribute("data-active-word", locale.first);
+    await expect(staticLine).toHaveText(locale.ending);
+    const initialTop = (await staticLine.boundingBox())?.y;
+    await page.waitForTimeout(3_700);
+    await expect(word).toHaveAttribute("data-active-word", locale.second);
+    expect((await staticLine.boundingBox())?.y).toBe(initialTop);
+  }
+});
+
+test("keeps the first hero word static when reduced motion is preferred", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/es");
+  const word = page.locator("[data-rotating-hero-word]");
+  await expect(word).toHaveAttribute("data-active-word", "propósito");
+  await page.waitForTimeout(3_700);
+  await expect(word).toHaveAttribute("data-active-word", "propósito");
+});
+
 test("service page has unique content and a booking CTA", async ({ page }) => {
   await page.goto("/services/airport-transfers");
   await expect(page.getByRole("heading", { name: /orlando airport transfers/i })).toBeVisible();

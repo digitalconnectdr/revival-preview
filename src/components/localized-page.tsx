@@ -6,6 +6,7 @@ import { CentralFloridaMap } from "@/components/central-florida-map";
 import { FleetCard } from "@/components/fleet-card";
 import { GoogleReviews } from "@/components/google-reviews";
 import { JsonLd } from "@/components/json-ld";
+import { RotatingHeroWord } from "@/components/rotating-hero-word";
 import { ServiceAreaCoverageVisual } from "@/components/service-area-coverage-visual";
 import { ServiceCard } from "@/components/service-card";
 import { ServiceImageGallery } from "@/components/service-image-gallery";
@@ -15,6 +16,7 @@ import { business } from "@/content/business";
 import { type Locale, localizedPath } from "@/i18n/config";
 import { getLocalizedAirports, getLocalizedFleet, getLocalizedRoute, getLocalizedRoutes, getLocalizedService, getLocalizedServices, getLocalizedSiteFaq } from "@/i18n/content";
 import { getUi } from "@/i18n/ui";
+import { homeHeroCopy } from "@/i18n/hero-copy";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 
@@ -125,13 +127,11 @@ function LocalizedHome({ locale }: { locale: Locale }) {
   const fleet = getLocalizedFleet(locale);
   const siteFaq = getLocalizedSiteFaq(locale);
   const ui = getUi(locale);
-  const heroTitle = locale === "es"
-    ? { lead: "Llega con ", accent: "propósito.", ending: "Viaja con tranquilidad." }
-    : { lead: "Chegue com ", accent: "propósito.", ending: "Viaje com tranquilidade." };
+  const hero = homeHeroCopy[locale];
   return <>
     <JsonLd data={faqSchema(siteFaq)} />
     <section className="hero"><div className="hero-glow hero-glow-one" /><div className="hero-glow hero-glow-two" /><div className="hero-road" /><div className="container hero-grid">
-      <div className="hero-copy"><Eyebrow>{text.eyebrow}</Eyebrow><h1>{heroTitle.lead}<em>{heroTitle.accent}</em><br />{heroTitle.ending}</h1><p>{text.intro}</p><div className="hero-actions"><PrimaryCta label={ui.bookRide} placement="hero-primary" /><Link className="button button-ghost" href={href(locale, "/services")}>{text.explore} <span aria-hidden="true">→</span></Link></div><div className="hero-footnote"><span>◌</span> {text.footnote[0]} <span>◌</span> {text.footnote[1]} <span>◌</span> {text.footnote[2]}</div></div>
+      <div className="hero-copy"><Eyebrow>{text.eyebrow}</Eyebrow><h1><span className="hero-title-accessible">{hero.accessibleText}</span><span aria-hidden="true" className="hero-title-visual">{hero.lead}<RotatingHeroWord key={locale} words={hero.words} />.<br /><span data-hero-static-line>{hero.ending}</span></span></h1><p>{text.intro}</p><div className="hero-actions"><PrimaryCta label={ui.bookRide} placement="hero-primary" /><Link className="button button-ghost" href={href(locale, "/services")}>{text.explore} <span aria-hidden="true">→</span></Link></div><div className="hero-footnote"><span>◌</span> {text.footnote[0]} <span>◌</span> {text.footnote[1]} <span>◌</span> {text.footnote[2]}</div></div>
       <aside aria-labelledby="quote-title" className="quote-card"><p className="eyebrow">{text.plan}</p><h2 id="quote-title">{text.ready}</h2><p className="quote-intro">{text.planIntro}</p><ul className="quote-checklist"><li>{text.stepOne}</li><li>{text.stepTwo}</li><li>{text.stepThree}</li></ul><BookingLink className="button button-dark button-full" placement="quick-quote">{ui.startReservation} <span aria-hidden="true">↗</span></BookingLink><p className="quote-note">{locale === "es" ? "Compartirás los detalles del viaje directamente en la experiencia de reserva." : "Você informará os detalhes da viagem diretamente na experiência de reserva."}</p></aside>
     </div></section>
     <Section className="trust-section"><div className="container trust-grid">{text.trust.map(([title, description], index) => <div key={title}><span className="trust-symbol">0{index + 1}</span><strong>{title}</strong><p>{description}</p></div>)}</div></Section>

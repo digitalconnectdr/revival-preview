@@ -6,12 +6,15 @@ import { CentralFloridaMap } from "@/components/central-florida-map";
 import { FleetCard } from "@/components/fleet-card";
 import { GoogleReviews } from "@/components/google-reviews";
 import { JsonLd } from "@/components/json-ld";
+import { RotatingHeroWord } from "@/components/rotating-hero-word";
 import { ServiceCard } from "@/components/service-card";
 import { ArrowLink, Eyebrow, FaqList, PrimaryCta, Section, SectionHeading } from "@/components/site-components";
 import { fleet, routes, services, siteFaq } from "@/content/data";
+import { homeHeroCopy } from "@/i18n/hero-copy";
 import { faqSchema } from "@/lib/seo";
 
 export default function HomePage() {
+  const hero = homeHeroCopy.en;
   return <>
     <JsonLd data={faqSchema(siteFaq)} />
     <section className="hero">
@@ -21,7 +24,7 @@ export default function HomePage() {
       <div className="container hero-grid">
         <div className="hero-copy">
           <Eyebrow>Central Florida private transportation</Eyebrow>
-          <h1>Arrive with <em>purpose.</em><br />Travel with ease.</h1>
+          <h1><span className="hero-title-accessible">{hero.accessibleText}</span><span aria-hidden="true" className="hero-title-visual">{hero.lead}<RotatingHeroWord words={hero.words} />.<br /><span data-hero-static-line>{hero.ending}</span></span></h1>
           <p>Private transportation for airport, corporate, cruise and city-to-city travel — coordinated around the details that matter.</p>
           <div className="hero-actions">
             <PrimaryCta placement="hero-primary" />
