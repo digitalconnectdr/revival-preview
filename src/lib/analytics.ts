@@ -27,6 +27,8 @@ export const consentPreferencesEvent = "revival-measurement-open-preferences";
 const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "gbraid", "wbraid"] as const;
 const measurementEnabled = process.env.NEXT_PUBLIC_SITE_ENV === "production" && process.env.NEXT_PUBLIC_TRACKING_ENABLED === "true";
 const measurementDebug = process.env.NEXT_PUBLIC_MEASUREMENT_DEBUG === "true";
+let cachedConsentRaw: string | null | undefined;
+let cachedConsent: MeasurementConsent | null = null;
 
 type TrackingContext = {
   locale: "en" | "es" | "pt";
@@ -133,10 +135,17 @@ export function trackLanguageSwitch(fromLocale: string, toLocale: string, path: 
 export function readConsent(): MeasurementConsent | null {
   if (typeof window === "undefined") return null;
   try {
-    const parsed = JSON.parse(window.localStorage.getItem(consentStorageKey) ?? "null") as Partial<MeasurementConsent> | null;
-    if (!parsed || typeof parsed.analytics !== "boolean" || typeof parsed.advertising !== "boolean") return null;
-    return { analytics: parsed.analytics, advertising: parsed.advertising };
+    const rawConsent = window.localStorage.getItem(consentStorageKey);
+    if (rawConsent === cachedConsentRaw) return cachedConsent;
+    cachedConsentRaw = rawConsent;
+    const parsed = JSON.parse(rawConsent ?? "null") as Partial<MeasurementConsent> | null;
+    cachedConsent = parsed && typeof parsed.analytics === "boolean" && typeof parsed.advertising === "boolean"
+      ? { analytics: parsed.analytics, advertising: parsed.advertising }
+      : null;
+    return cachedConsent;
   } catch {
+    cachedConsentRaw = undefined;
+    cachedConsent = null;
     return null;
   }
 }
